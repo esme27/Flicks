@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		741511811C4DC23D001218FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741511801C4DC23D001218FA /* AppDelegate.swift */; };
-		741511831C4DC23D001218FA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741511821C4DC23D001218FA /* ViewController.swift */; };
 		741511861C4DC23D001218FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 741511841C4DC23D001218FA /* Main.storyboard */; };
 		741511881C4DC23D001218FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 741511871C4DC23D001218FA /* Assets.xcassets */; };
 		7415118B1C4DC23D001218FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 741511891C4DC23D001218FA /* LaunchScreen.storyboard */; };
+		741511931C4DC803001218FA /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741511921C4DC803001218FA /* MoviesViewController.swift */; };
+		741511961C4DF098001218FA /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741511951C4DF098001218FA /* MovieCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7415117D1C4DC23D001218FA /* flicks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flicks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		741511801C4DC23D001218FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		741511821C4DC23D001218FA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		741511851C4DC23D001218FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		741511871C4DC23D001218FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7415118A1C4DC23D001218FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7415118C1C4DC23D001218FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		741511921C4DC803001218FA /* MoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
+		741511951C4DF098001218FA /* MovieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,31 @@
 		7415117F1C4DC23D001218FA /* flicks */ = {
 			isa = PBXGroup;
 			children = (
+				741511971C4DF0C6001218FA /* view Controllers */,
+				741511921C4DC803001218FA /* MoviesViewController.swift */,
+				741511941C4DEFC2001218FA /* Views */,
 				741511801C4DC23D001218FA /* AppDelegate.swift */,
-				741511821C4DC23D001218FA /* ViewController.swift */,
 				741511841C4DC23D001218FA /* Main.storyboard */,
 				741511871C4DC23D001218FA /* Assets.xcassets */,
 				741511891C4DC23D001218FA /* LaunchScreen.storyboard */,
 				7415118C1C4DC23D001218FA /* Info.plist */,
 			);
 			path = flicks;
+			sourceTree = "<group>";
+		};
+		741511941C4DEFC2001218FA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				741511951C4DF098001218FA /* MovieCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		741511971C4DF0C6001218FA /* view Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "view Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +115,7 @@
 				TargetAttributes = {
 					7415117C1C4DC23C001218FA = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 5427GGX9N9;
 					};
 				};
 			};
@@ -135,8 +155,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				741511831C4DC23D001218FA /* ViewController.swift in Sources */,
 				741511811C4DC23D001218FA /* AppDelegate.swift in Sources */,
+				741511931C4DC803001218FA /* MoviesViewController.swift in Sources */,
+				741511961C4DF098001218FA /* MovieCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,10 +270,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = flicks/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = codepath.com.flicks;
+				PRODUCT_BUNDLE_IDENTIFIER = "Esme-Romero";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -260,10 +285,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = flicks/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = codepath.com.flicks;
+				PRODUCT_BUNDLE_IDENTIFIER = "Esme-Romero";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
