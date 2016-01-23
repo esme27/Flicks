@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import AFNetworking
+import MBProgressHUD
+
+
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
     var movies: [NSDictionary]?
+    // var loading
+    
     
     
     override func viewDidLoad() {
@@ -20,8 +26,17 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
         // Do any additional setup after loading the view.
         
+       
+        
+        // ...
+        
+        
+        
+        
         tableView.dataSource = self
         tableView.delegate = self
+        
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
@@ -41,7 +56,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             
                             self.movies = responseDictionary["results"] as! [NSDictionary]
                             
-                            self.tableView.reloadData()
+                             self.tableView.reloadData()
+                            
+                             self.loading(0.3,closure: {MBProgressHUD.hideHUDForView(self.view, animated: true)})
+                            
+                            
+                            
                             
                     }
                 }
@@ -77,12 +97,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let movie = movies! [indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
+        let posterPath = movie["poster_path"] as! String
         
+        let baseUrl = "http://image.tmdb.org/t/p/w500"
+        
+        let imageUrl = NSURL(string: baseUrl + posterPath)
         
         
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview 
-        
+        cell.posterView.setImageWithURL(imageUrl!)
         
         
         
