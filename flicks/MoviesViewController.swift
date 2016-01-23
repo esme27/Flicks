@@ -58,8 +58,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             
                              self.tableView.reloadData()
                             
-                             self.loading(0.3,closure: {MBProgressHUD.hideHUDForView(self.view, animated: true)})
-                            
+//                             self.loading(0.3,closure: {MBProgressHUD.hideHUDForView(self.view, animated: true)})
+                            MBProgressHUD.hideHUDForView(self.view, animated: true)
                             
                             
                             
