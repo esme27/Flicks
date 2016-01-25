@@ -16,8 +16,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
     @IBOutlet weak var tableView: UITableView!
     
+    
+    var refreshControl = UIRefreshControl()
     var movies: [NSDictionary]?
-    // var loading
     
     
     
@@ -25,16 +26,26 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-       
-        
-        // ...
-        
-        
-        
+        //refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refreshControlAction", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
         
         tableView.dataSource = self
         tableView.delegate = self
+
+        
+        getNetwork()
+        
+    
+       
+
+        // ...
+        
+        
+    }
+    
+    func  getNetwork() {
+    
         
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         
@@ -46,7 +57,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             delegate:nil,
             delegateQueue:NSOperationQueue.mainQueue()
         )
-        
+    
         let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, response, error) in
                 if let data = dataOrNil {
@@ -58,16 +69,37 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             
                              self.tableView.reloadData()
                             
-//                             self.loading(0.3,closure: {MBProgressHUD.hideHUDForView(self.view, animated: true)})
-                            MBProgressHUD.hideHUDForView(self.view, animated: true)
                             
+                         
+                           MBProgressHUD.hideHUDForView(self.view, animated: true)
                             
                             
                     }
                 }
+                
+                
+                
+                
         });
+        
         task.resume()
     }
+    
+    
+    func refreshControlAction(){
+        
+        getNetwork()
+        
+        
+        self.refreshControl.endRefreshing()
+        
+        
+    }
+    
+    
+    
+
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
