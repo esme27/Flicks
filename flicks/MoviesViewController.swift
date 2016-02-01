@@ -15,11 +15,14 @@ import MBProgressHUD
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     
     var refreshControl = UIRefreshControl()
     var movies: [NSDictionary]?
-
+    var endpoint: String!
+    var filteredData: [NSDictionary]?
+    
     
     
     
@@ -28,12 +31,19 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
         // Do any additional setup after loading the view.
         //refreshControl = UIRefreshControl()
+        
+        
+        
         refreshControl.addTarget(self, action: "refreshControlAction", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
         
+        navigationController?.navigationBar.barStyle = UIBarStyle.Black
+        
+        
         tableView.dataSource = self
         tableView.delegate = self
-
+        
+        
         
         getNetwork()
         
@@ -45,13 +55,40 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
+    func searchBar(searchBar: UISearchBar,textDidChange searchText: String){
+        
+        searchBar.showsCancelButton = true
+    
+        
+        filteredData = searchText.isEmpty ? movies : movies!.filter({ ( movie: NSDictionary)-> Bool in
+            return ( movie ["title"] as! String).rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
+        
+        })
+        
+       self.movies = self.filteredData
+        
+       self .tableView.reloadData()
+        
+        
+        
+    }
+    
+    func searchBarCansel(searchBar: UISearchBar){
+        
+        view.endEditing(true)
+        searchBar.showsCancelButton = false
+        
+    }
+    
+    
+    
     func  getNetwork() {
     
         
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = NSURL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        let url = NSURL(string:"https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
         let request = NSURLRequest(URL: url!)
         let session = NSURLSession(
             configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
@@ -69,6 +106,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             self.movies = responseDictionary["results"] as! [NSDictionary]
                             
                              self.tableView.reloadData()
+                            
                             
                             
                          
@@ -126,6 +164,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
+       
+        var grayColor = UIView()
+        grayColor.backgroundColor = UIColor.grayColor()
+        cell.selectedBackgroundView = grayColor
+        
         
         let movie = movies! [indexPath.row]
         let title = movie["title"] as! String
@@ -181,5 +224,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             print("prepare For Segue called")
     }
     
+      
 
 }
